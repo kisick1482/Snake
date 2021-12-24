@@ -45,7 +45,7 @@ namespace Snake
             _generateMap();
             _generateFruit();
             timer1.Tick += new EventHandler(_update);
-            timer1.Interval = 500;
+            timer1.Interval = 100;
             timer1.Start();
             this.KeyDown += new KeyEventHandler(OKP);
         }
@@ -58,6 +58,7 @@ namespace Snake
             r2 = r.Next(20, 500);
             int temp2 = r2 % 20;
             r2 -= temp2;
+            
             fruit.Location = new Point(r1, r2);
             this.Controls.Add(fruit);
 
@@ -96,10 +97,12 @@ namespace Snake
         }
         private void _moveSnake()
         {
-            for(int i=score; i >= 0; i--)
+            for(int i=score; i >= 1; i--)
             {
-                snake[i].Location = new Point(snake[i].Location.X + dirX * _sizeOfSides, snake[i].Location.Y + dirY * _sizeOfSides);
+                snake[i].Location = snake[i - 1].Location;
+
             }
+            snake[0].Location = new Point(snake[0].Location.X + (dirX * _sizeOfSides), snake[0].Location.Y + (dirY * _sizeOfSides));
         }
         private void _update(object myObject, EventArgs eventArgs)
         {
