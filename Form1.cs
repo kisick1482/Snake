@@ -24,14 +24,15 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
+            this.Text = "Danger snake game";
             this.Width = _width;
             this.Height = _height;
             dirX = 1;
             dirY = 0;
             scoreLabel = new Label();
             scoreLabel.Text = "Score: 0";
-            scoreLabel.Location = new Point(530, 20);
-            scoreLabel.BackColor = Color.White;
+            scoreLabel.Location = new Point(540, 20);
+            scoreLabel.ForeColor = Color.White;
             this.Controls.Add(scoreLabel);
             snake[0] = new PictureBox();
             snake[0].Location = new Point(20, 20);
@@ -45,7 +46,7 @@ namespace Snake
             _generateMap();
             _generateFruit();
             timer1.Tick += new EventHandler(_update);
-            timer1.Interval = 100;
+            timer1.Interval = 200;
             timer1.Start();
             this.KeyDown += new KeyEventHandler(OKP);
         }
@@ -63,6 +64,63 @@ namespace Snake
             this.Controls.Add(fruit);
 
         }
+        private void _borders()
+        {
+            if(snake[0].Location.X < 20)
+            {
+                for( int _i= 0; _i <= score; _i++)
+                {
+                    this.Controls.Remove(snake[_i]);
+                }
+                score = 0;
+                dirX = 1;
+                scoreLabel.Text = "Score: " + score;
+            }
+            if (snake[0].Location.Y < 20)
+            {
+                for (int _i = 0; _i <= score; _i++)
+                {
+                    this.Controls.Remove(snake[_i]);
+                }
+                score = 0;
+                dirY = 1;
+                scoreLabel.Text = "Score: " + score;
+            }
+            if (snake[0].Location.X > 500)
+            {
+                for (int _i = 0; _i <= score; _i++)
+                {
+                    this.Controls.Remove(snake[_i]);
+                }
+                score = 0;
+                dirX = -1;
+                scoreLabel.Text = "Score: " + score;
+            }
+            if (snake[0].Location.Y > 500)
+            {
+                for (int _i = 0; _i <= score; _i++)
+                {
+                    this.Controls.Remove(snake[_i]);
+                }
+                score = 0;
+                dirY = -1;
+                scoreLabel.Text = "Score: " + score;
+            }
+
+        }
+        private void _eatItSelf()
+        {
+            for (int _i = 1; _i < score; _i++)
+            {
+                if(snake[0].Location == snake[_i].Location)
+                {
+                    for (int _j = _i; _j <= score; _j++)
+                        this.Controls.Remove(snake[_j]);
+                    score = score - (score - _i + 1);
+                    scoreLabel.Text = "Score: " + score;
+                }
+            }
+        }
         private void _eatFruit()
         {
             if (snake[0].Location.X == r1 && snake[0].Location.Y == r2)
@@ -71,7 +129,7 @@ namespace Snake
                 snake[score] = new PictureBox();
                 snake[score].Location = new Point(snake[score - 1].Location.X + 20 * dirX, snake[score - 1].Location.Y - 20 * dirY);
                 snake[score].Size = new Size(_sizeOfSides, _sizeOfSides);
-                snake[score].BackColor = Color.Red;
+                snake[score].BackColor = Color.DarkViolet;
                 this.Controls.Add(snake[score]);
                 _generateFruit();
             }
@@ -103,9 +161,11 @@ namespace Snake
 
             }
             snake[0].Location = new Point(snake[0].Location.X + (dirX * _sizeOfSides), snake[0].Location.Y + (dirY * _sizeOfSides));
+            _eatItSelf();
         }
         private void _update(object myObject, EventArgs eventArgs)
         {
+            _borders();
             _eatFruit();
             _moveSnake();
             cube.Location = new Point(cube.Location.X + dirX * _sizeOfSides, cube.Location.Y + dirY * _sizeOfSides);

@@ -106,7 +106,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cube);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Danger snake game";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.cube)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
