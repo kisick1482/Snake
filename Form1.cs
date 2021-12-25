@@ -24,15 +24,15 @@ namespace Snake
         public Form1()
         {
             InitializeComponent();
-            this.Text = "Danger snake game";
+            this.Text = "Gachi snake game 0.1";
             this.Width = _width;
             this.Height = _height;
             dirX = 1;
             dirY = 0;
             scoreLabel = new Label();
-            scoreLabel.Text = "Score: 0";
+            scoreLabel.Text = "0 $";
             scoreLabel.Location = new Point(540, 20);
-            scoreLabel.ForeColor = Color.White;
+            scoreLabel.ForeColor = Color.Green;
             this.Controls.Add(scoreLabel);
             snake[0] = new PictureBox();
             snake[0].Location = new Point(20, 20);
@@ -41,7 +41,8 @@ namespace Snake
             this.Controls.Add(snake[0]);
             fruit = new PictureBox();
             fruit.Size = new Size(20, 20);
-            fruit.BackColor = Color.PaleVioletRed;
+            fruit.BackColor = Color.PaleVioletRed; 
+            fruit.Image = Image.FromFile("G:/kisick/csharp/Snake/Bucks2.png");
              fruit.Location = new Point();
             _generateMap();
             _generateFruit();
@@ -74,7 +75,7 @@ namespace Snake
                 }
                 score = 0;
                 dirX = 1;
-                scoreLabel.Text = "Score: " + score;
+                scoreLabel.Text = score + " $";
             }
             if (snake[0].Location.Y < 20)
             {
@@ -84,7 +85,7 @@ namespace Snake
                 }
                 score = 0;
                 dirY = 1;
-                scoreLabel.Text = "Score: " + score;
+                scoreLabel.Text = score + " $";
             }
             if (snake[0].Location.X > 500)
             {
@@ -94,7 +95,7 @@ namespace Snake
                 }
                 score = 0;
                 dirX = -1;
-                scoreLabel.Text = "Score: " + score;
+                scoreLabel.Text = score + " $";
             }
             if (snake[0].Location.Y > 500)
             {
@@ -104,7 +105,7 @@ namespace Snake
                 }
                 score = 0;
                 dirY = -1;
-                scoreLabel.Text = "Score: " + score;
+                scoreLabel.Text = score + " $";
             }
 
         }
@@ -117,7 +118,7 @@ namespace Snake
                     for (int _j = _i; _j <= score; _j++)
                         this.Controls.Remove(snake[_j]);
                     score = score - (score - _i + 1);
-                    scoreLabel.Text = "Score: " + score;
+                    scoreLabel.Text = score + " $";
                 }
             }
         }
@@ -125,31 +126,31 @@ namespace Snake
         {
             if (snake[0].Location.X == r1 && snake[0].Location.Y == r2)
             {
-                scoreLabel.Text = "Score: " + ++score;
+                scoreLabel.Text = ++score + " $";
                 snake[score] = new PictureBox();
                 snake[score].Location = new Point(snake[score - 1].Location.X + 20 * dirX, snake[score - 1].Location.Y - 20 * dirY);
                 snake[score].Size = new Size(_sizeOfSides, _sizeOfSides);
-                snake[score].BackColor = Color.DarkViolet;
+                snake[score].BackColor = Color.BlueViolet;
                 this.Controls.Add(snake[score]);
                 _generateFruit();
             }
         }
         private void _generateMap()
         {
-            for(int i = 1; i <= _width / 28; i++)
+            for(int i = 1; i <= 700 / 28; i++)
             {
                 PictureBox picb = new PictureBox();
                 picb.BackColor = Color.DarkGreen;
                 picb.Location = new Point(20, _sizeOfSides * i);
-                picb.Size = new Size(_width - 200, 1);
+                picb.Size = new Size( 700 - 200, 1);
                 this.Controls.Add(picb);
             }
-            for (int i = 1; i < _height / 23; i++)
+            for (int i = 1; i < 600 / 23; i++)
             {
                 PictureBox picb = new PictureBox();
                 picb.BackColor = Color.DarkGreen;
                 picb.Location = new Point( _sizeOfSides * i, 20);
-                picb.Size = new Size(1, _height - 100);
+                picb.Size = new Size(1, 600 - 100);
                 this.Controls.Add(picb);
             }
         }

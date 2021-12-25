@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cube = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -45,6 +46,7 @@
             // cube
             // 
             this.cube.BackColor = System.Drawing.Color.Cyan;
+            this.cube.Image = ((System.Drawing.Image)(resources.GetObject("cube.Image")));
             this.cube.Location = new System.Drawing.Point(20, 20);
             this.cube.Name = "cube";
             this.cube.Size = new System.Drawing.Size(20, 20);
@@ -99,7 +101,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ClientSize = new System.Drawing.Size(682, 553);
+            this.ClientSize = new System.Drawing.Size(676, 553);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
